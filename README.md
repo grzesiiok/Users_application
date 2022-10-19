@@ -1,5 +1,27 @@
 # Grzegorz Tomsia
 
+## Backend Aplication to menage users with using
+
+Python
+GIT
+HTTP
+REST API
+Swagger
+OpenAPI
+Postman
+Pytest
+Django
+Poetry
+Docker
+CI/CD (on GitLab)
+RabbitMQ
+PostgreSQL
+SQLite
+NoSQL
+Redis
+SQLAlchemy and SQLModel
+AWS
+
 ## Added at first update
 Added new hooks to show and compare versions while commiting
 commit-msg
