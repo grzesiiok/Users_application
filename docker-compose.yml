@@ -1,0 +1,55 @@
+version: "3.6.1"
+services:
+  postgres:
+    container_name: postgr
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    networks:
+      - fast_network
+  fast_app:
+    image: api_tests
+    build: .
+    ports:
+      - "4321:4321"
+#    restart: always
+    depends_on:
+#      - postgres
+#      - redis
+      rabbit:
+        condition: service_healthy
+    networks:
+      - fast_network
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - fast_network
+
+  rabbit:
+    container_name: rabbit
+    image: rabbitmq:latest
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    restart: always
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 3s
+      retries: 30
+    networks:
+      - fast_network
+
+networks:
+  fast_network:
+    driver: bridge
